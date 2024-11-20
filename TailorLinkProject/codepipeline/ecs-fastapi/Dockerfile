@@ -18,10 +18,11 @@ WORKDIR /app
 
 # 필요한 라이브러리 설치  
 RUN pip3 install -r ./requirements.txt
+RUN pip install uvicorn
 
 # 실행 포트 정의 
-EXPOSE 8501
+EXPOSE 8000
 # 컨테이너 실행 유무 확인 
-HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
+HEALTHCHECK CMD curl --fail http://localhost:8000/_stcore/health
 # 웹서버 실행 
-ENTRYPOINT ["uvicorn", "tailorBot:app", "--reload", "--server.port=8501", "--server.address=0.0.0.0"]
+ENTRYPOINT ["uvicorn", "tailor_chatbot.tailorBot:app", "--host", "0.0.0.0", "--port", "8000"]
