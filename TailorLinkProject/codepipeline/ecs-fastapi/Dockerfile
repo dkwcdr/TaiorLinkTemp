@@ -10,15 +10,17 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # 코드 복사 
-COPY ./tailor_chatbot /app
+COPY ./tailor_chatbot /app/tailor_chatbot
 COPY ./requirements.txt /app
 
 # 실행 폴더 정의 
 WORKDIR /app
 
 # 필요한 라이브러리 설치  
-RUN pip3 install -r ./requirements.txt
-RUN pip install uvicorn
+RUN pip3 install --no-cache-dir -r ./requirements.txt
+RUN pip3 install --no-cache-dir uvicorn
+
+ENV PYTHONPATH=/app
 
 # 실행 포트 정의 
 EXPOSE 8000
